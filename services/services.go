@@ -16,7 +16,6 @@ func RequestToWebtoon() (results []map[string]string) {
 	utils.CheckResponse(res)
 
 	doc, gqErr := goquery.NewDocumentFromReader(res.Body)
-	defer res.Body.Close()
 	utils.CheckError(gqErr)
 
 	doc.Find("ul.img_list .thumb img").Each(func(idx int, s *goquery.Selection) {
@@ -26,5 +25,6 @@ func RequestToWebtoon() (results []map[string]string) {
 			results = append(results, result)
 		}
 	})
+	defer res.Body.Close()
 	return
 }
