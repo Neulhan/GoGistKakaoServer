@@ -9,7 +9,7 @@ import (
 
 // RequestToWebtoon 웹툰으로 보내는 요청
 func RequestToWebtoon() (results []map[string]string) {
-	url := "htts://comic.naver.com/webtoon/weekdayList.nhn?week="
+	url := "https://comic.naver.com/webtoon/weekdayList.nhn?week="
 
 	res, rqErr := http.Get(url)
 	utils.CheckError(rqErr)

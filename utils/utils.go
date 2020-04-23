@@ -3,27 +3,27 @@ package utils
 import (
 	"bytes"
 	"fmt"
-	"log"
 	"net/http"
+	"strconv"
+	"strings"
 
 	"github.com/PuerkitoBio/goquery"
 	"github.com/neulhan/gistGoServer/config"
 )
 
 // CheckError 에러 체크
-func CheckError(e error) bool {
+func CheckError(e error) {
 	if e != nil {
 		err := errorToSlackMessage(e)
 		SlackSender(config.ErrorWebhook, err)
-		return true
 	}
-	return false
 }
 
 // CheckResponse 에러 체크
 func CheckResponse(res *http.Response) {
 	if res.StatusCode >= 400 {
-		log.Fatal(res.StatusCode)
+		err := responseErrorToSlackMessage(res)
+		SlackSender(config.ErrorWebhook, err)
 	}
 }
 
@@ -34,35 +34,66 @@ func SlackSender(u string, s string) {
 
 	res, err := http.Post(u, "text/plain", reqBody)
 
-	doc, _ := goquery.NewDocumentFromReader(res.Body)
-	fmt.Println(doc.Text())
-	defer res.Body.Close()
 	fmt.Println(res.StatusCode)
 	fmt.Println(err)
 }
 
-func errorToSlackMessage(e error) (msg string) {
-	// errMsg := "e.Error()"
+func errorToSlackMessage(e error) string {
+	// errMsg := `echo\: http\: panic serving 127.0.0.1\:34176\: runtime error\: invalid memory address or nil pointer dereference
+	// goroutine 5 [running]\:`
 	errMsg := e.Error()
-
-	msg = `
+	// errMsg := "http://127.0.0.1:10108/"
+	r1 := strings.NewReplacer(`"`, `\"`)
+	msg := `
 	{
 		"attachments":[
 		   {
-			  "fallback":"New open task [Urgent]: <http://url_to_task|Test out Slack message attachments>"
-			  "text": ` + errMsg + ` 
-			  "pretext":"New open task [Urgent]: <http://url_to_task|Test out Slack message attachments>",
+			  "fallback":"gist kakao 채널에 에러 발생!",
+			  "pretext":"gist kakao 채널에 에러 발생!",
 			  "color":"#FF0000",
 			  "fields":[
 				 {
-					"title":"사령관님 오류가 발견되었습니다!!",
-					"value":"에러입니다!",
+					"title":"사령관님 문제상황이 발생했습니다!!",
+					"value": "` + r1.Replace(errMsg) + `",
 					"short":false
 				 }
 			  ]
 		   }
 		]
-	}`
-	fmt.Println(2222)
-	return
+	 }`
+
+	r2 := strings.NewReplacer(`&`, `&amp`, `<`, `&lt`, `>`, `&gt`)
+	result := r2.Replace(msg)
+	fmt.Println(result)
+	return result
+}
+
+func responseErrorToSlackMessage(e *http.Response) string {
+	doc, _ := goquery.NewDocumentFromReader(e.Body)
+	errMsg := "[" + strconv.Itoa(e.StatusCode) + " error]: " + doc.Text()
+
+	defer e.Body.Close()
+	r1 := strings.NewReplacer(`"`, `\"`)
+	msg := `
+	{
+		"attachments":[
+		   {
+			  "fallback":"gist kakao 채널에 에러 발생!",
+			  "pretext":"gist kakao 채널에 에러 발생!",
+			  "color":"#FFA500",
+			  "fields":[
+				 {
+					"title":"사령관님 문제상황이 발생했습니다!!",
+					"value": "` + r1.Replace(errMsg) + `",
+					"short":false
+				 }
+			  ]
+		   }
+		]
+	 }`
+
+	r2 := strings.NewReplacer(`&`, `&amp`, `<`, `&lt`, `>`, `&gt`)
+	result := r2.Replace(msg)
+	fmt.Println(result)
+	return result
 }
