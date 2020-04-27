@@ -15,12 +15,14 @@ import (
 func CheckError(e error) {
 	if e != nil {
 		err := errorToSlackMessage(e)
-		SlackSender(config.ErrorWebhook, err)
+		// SlackSender(config.ErrorWebhook, err)
+		fmt.Println(err)
 	}
 }
 
 // CheckResponse 에러 체크
 func CheckResponse(res *http.Response) {
+	fmt.Println(7878787878787, res.StatusCode)
 	if res.StatusCode >= 400 {
 		err := responseErrorToSlackMessage(res)
 		SlackSender(config.ErrorWebhook, err)
