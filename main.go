@@ -7,8 +7,12 @@ import (
 
 func main() {
 	e := echo.New()
-	e.GET("", views.SchoolMeal)
-	e.POST("", views.SchoolMeal)
+	e.GET("/w", views.Webtoon)
+	e.POST("/w", views.Webtoon)
+
+	e.GET("/:id", views.SchoolMeal)
+	e.POST("/:id", views.SchoolMeal)
+
 	e.Logger.Fatal(e.Start(":10108"))
 
 	// utils.SlackSender(config.ErrorWebhook, "g")
