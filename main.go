@@ -48,7 +48,7 @@ func main() {
 	})
 	e.POST("/:id", views.SchoolMeal)
 
-	e.Logger.Fatal(e.Start(":10108"))
+	e.Logger.Fatal(e.Start(":9090"))
 
 	// utils.SlackSender(config.ErrorWebhook, "g")
 	// views.JSONTest()
