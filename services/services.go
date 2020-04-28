@@ -4,9 +4,8 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/neulhan/gistGoServer/config"
-
 	"github.com/PuerkitoBio/goquery"
+	"github.com/neulhan/gistGoServer/config"
 	"github.com/neulhan/gistGoServer/utils"
 )
 
