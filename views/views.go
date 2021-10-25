@@ -4,9 +4,9 @@ import (
 	"net/http"
 	"strconv"
 
+	"../services"
+	"../template"
 	"github.com/labstack/echo"
-	"github.com/neulhan/gistGoServer/services"
-	"github.com/neulhan/gistGoServer/template"
 )
 
 // SchoolMeal 학생식당  크롤링

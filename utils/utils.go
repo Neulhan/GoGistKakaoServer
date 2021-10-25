@@ -4,11 +4,12 @@ import (
 	"bytes"
 	"fmt"
 	"net/http"
+
 	"strconv"
 	"strings"
 
+	"../config"
 	"github.com/PuerkitoBio/goquery"
-	"github.com/neulhan/gistGoServer/config"
 )
 
 // CheckError 에러 체크

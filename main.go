@@ -7,12 +7,12 @@ import (
 	"strconv"
 	"time"
 
+	"./services"
+	"./template"
+	"./utils"
+	"./views"
 	"github.com/go-redis/redis"
 	"github.com/labstack/echo"
-	"github.com/neulhan/gistGoServer/services"
-	"github.com/neulhan/gistGoServer/template"
-	"github.com/neulhan/gistGoServer/utils"
-	"github.com/neulhan/gistGoServer/views"
 )
 
 func main() {

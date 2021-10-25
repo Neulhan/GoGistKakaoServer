@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"net/http"
 
+	"../config"
+	"../utils"
 	"github.com/PuerkitoBio/goquery"
-	"github.com/neulhan/gistGoServer/config"
-	"github.com/neulhan/gistGoServer/utils"
 )
 
 // RequestToWebtoon 웹툰으로 보내는 요청
