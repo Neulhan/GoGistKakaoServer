@@ -1,13 +1,41 @@
 package template
 
-// KakaoCard 카카오 스킬 서버 이미지 카드
-type KakaoCard struct {
-	SimpleImage map[string]string `json:"simpleImage"`
+
+type KakaoCard interface {
+	CardToJSON() map[string]map[string]string
 }
+
+// KakaoCard 카카오 스킬 서버 이미지 카드
+type SimpleImageCard struct {
+	Text string
+}
+
+func (s SimpleImageCard) CardToJSON() map[string]map[string]string {
+	return map[string]map[string]string{
+		"simpleImage": {
+			"imageUrl": s.Text,
+			"altText":  "image",
+		},
+	}
+}
+
+// KakaoCard 카카오 스킬 서버 이미지 카드
+type SimpleTextCard struct {
+	Text string
+}
+
+func (s SimpleTextCard) CardToJSON() map[string]map[string]string {
+	return map[string]map[string]string {
+		"simpleText": {
+			"text": s.Text,
+		},
+	}
+}
+
 
 // KakaoTemplate 카카오 스킬 서버 템플릿
 type KakaoTemplate struct {
-	Outputs []KakaoCard `json:"outputs"`
+	Outputs []map[string]map[string]string `json:"outputs"`
 }
 
 // KakaoRes 카카오 스킬 서버 리스폰스
@@ -17,16 +45,14 @@ type KakaoRes struct {
 }
 
 // JSONResMaker json response maker
-func JSONResMaker(cards []map[string]string) (res *KakaoRes) {
-	var kakaocards []KakaoCard
+func JSONResMaker(kakaoCards []KakaoCard) (res *KakaoRes) {
+	var jsonCardList []map[string]map[string]string
 
-	for _, card := range cards {
-		kakaocard := KakaoCard{SimpleImage: card}
-		kakaocards = append(kakaocards, kakaocard)
+	for _, card := range kakaoCards {
+		jsonCardList = append(jsonCardList, card.CardToJSON())
 	}
 
-	template := KakaoTemplate{Outputs: kakaocards}
-
+	template := KakaoTemplate{Outputs: jsonCardList}
 	res = &KakaoRes{Version: "2.0", Template: template}
 	return
 }

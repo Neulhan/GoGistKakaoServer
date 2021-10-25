@@ -2,6 +2,7 @@ package services
 
 import (
 	"encoding/json"
+	"github.com/Neulhan/GoGistKakaoServer/template"
 	"net/http"
 
 	"github.com/Neulhan/GoGistKakaoServer/config"
@@ -39,7 +40,7 @@ type jsonImageSrc struct {
 }
 
 // RequestToGIST 지스트 학식 스크래핑하는 함수입니다.
-func RequestToGIST() (images []map[string]string) {
+func RequestToGIST() (cards []template.KakaoCard) {
 	res, err := http.Get(config.GISTBlogURL)
 	utils.CheckError(err)
 	utils.CheckResponse(res)
@@ -52,8 +53,8 @@ func RequestToGIST() (images []map[string]string) {
 		jsonBtye := []byte(jsonSrc)
 		var j jsonImageSrc
 		json.Unmarshal(jsonBtye, &j)
-		image := map[string]string{"imageUrl": j.Src + "?type=w800", "altText": "image"}
-		images = append(images, image)
+		card := template.SimpleImageCard{Text:j.Src}
+		cards = append(cards, card)
 	})
 	return
 }
