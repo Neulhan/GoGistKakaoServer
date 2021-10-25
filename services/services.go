@@ -53,7 +53,7 @@ func RequestToGIST() (cards []template.KakaoCard) {
 		jsonBtye := []byte(jsonSrc)
 		var j jsonImageSrc
 		json.Unmarshal(jsonBtye, &j)
-		card := template.SimpleImageCard{Text:j.Src}
+		card := template.SimpleImageCard{Text: j.Src  + "?type=w800"}
 		cards = append(cards, card)
 	})
 	return

@@ -19,7 +19,7 @@ func SchoolMeal(c echo.Context) error {
 	resultGIST := services.RequestToGIST()
 	id, _ := strconv.Atoi(c.Param("id"))
 	card2 := template.SimpleTextCard{Text: extraText + "\n" + nameList[id - 1] + "\n" + linkList[id - 1]}
-	cardList := append(resultGIST[id - 1 : id], card2)
+	cardList := append(resultGIST[id : id + 1], card2)
 	kakaoResponse := template.JSONResMaker(cardList)
 	return c.JSON(http.StatusOK, kakaoResponse)
 }
