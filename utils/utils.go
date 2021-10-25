@@ -8,7 +8,7 @@ import (
 	"strconv"
 	"strings"
 
-	"../config"
+	"github.com/Neulhan/GoGistKakaoServer/config"
 	"github.com/PuerkitoBio/goquery"
 )
 

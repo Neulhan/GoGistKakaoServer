@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"../config"
-	"../utils"
+	"github.com/Neulhan/GoGistKakaoServer/config"
+	"github.com/Neulhan/GoGistKakaoServer/utils"
 	"github.com/PuerkitoBio/goquery"
 )
 

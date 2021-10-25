@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"strconv"
 
-	"../services"
-	"../template"
+	"github.com/Neulhan/GoGistKakaoServer/services"
+	"github.com/Neulhan/GoGistKakaoServer/template"
 	"github.com/labstack/echo"
 )
 

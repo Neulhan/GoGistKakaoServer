@@ -7,10 +7,10 @@ import (
 	"strconv"
 	"time"
 
-	"./services"
-	"./template"
-	"./utils"
-	"./views"
+	"github.com/Neulhan/GoGistKakaoServer/services"
+	"github.com/Neulhan/GoGistKakaoServer/template"
+	"github.com/Neulhan/GoGistKakaoServer/utils"
+	"github.com/Neulhan/GoGistKakaoServer/views"
 	"github.com/go-redis/redis"
 	"github.com/labstack/echo"
 )
