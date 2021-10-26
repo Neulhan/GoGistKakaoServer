@@ -10,7 +10,7 @@ import (
 )
 
 
-var extraText = "'식단표 이미지가 보이지 않으시거나 내용이 다를 경우 링크를 눌러 확인해주세요 :)'"
+var extraText = "식단표 이미지가 보이지 않으시거나 내용이 다를 경우 링크를 눌러 확인해주세요 :)"
 var nameList = []string{"-1학1층 식당", "-1학2층 식당", "-2학1층 식당"}
 var linkList = []string{"https://www.gist.ac.kr/kr/html/sub05/050601.html", "https://www.gist.ac.kr/kr/html/sub05/050603.html", "https://www.gist.ac.kr/kr/html/sub05/050602.html"}
 
